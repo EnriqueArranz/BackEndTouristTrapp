@@ -1,5 +1,3 @@
-Tourist Trapp API
-Descripción
 La API de Tourist Trapp está diseñada para gestionar lugares de interés cultural y puntos de concentración turística en la ciudad de Barcelona. El objetivo principal es ayudar a descongestionar la ciudad, proporcionando información útil tanto a intermediarios (como hoteles, agencias de viaje y guías turísticos) como a los propios turistas que buscan comodidad y una mejor experiencia turística. 
 
 Características
