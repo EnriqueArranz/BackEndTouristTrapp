@@ -51,6 +51,11 @@ public class CulturalPlaceServiceImpl implements CulturalPlaceService {
         return calculateProximityPercentage(closestDistance, maxDistance);
     }
 
+    @Override
+    public void saveAll(List<CulturalPlace> places) {
+        culturalPlaceRepository.saveAll(places);
+    }
+
     public Optional<CulturalPlace> getCulturalPlaceById(Long id) {
         return culturalPlaceRepository.findById(id);
     }

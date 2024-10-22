@@ -12,4 +12,5 @@ public interface TouristConcentrationService {
     ResponseEntity<List<TouristConcentration>> getAllTouristConcentration();
     void createTouristConcentration(TouristConcentration concentration);
 
+    void saveAll(List<TouristConcentration> concentrations);
 }

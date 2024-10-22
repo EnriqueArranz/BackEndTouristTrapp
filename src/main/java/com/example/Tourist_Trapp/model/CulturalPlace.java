@@ -17,20 +17,14 @@ public class CulturalPlace {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable = false)
     private String name;
-
     @Column(nullable = false)
     private String category;
-
     @Column(nullable = false)
     private String address;
-
     @Column(nullable = false)
     private double lon;
-
     @Column(nullable = false)
     private double lat;
-
 }

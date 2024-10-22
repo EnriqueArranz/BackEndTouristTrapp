@@ -19,13 +19,10 @@ public class TouristConcentration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable = false)
     private double lon;
-
     @Column(nullable = false)
     private double lat;
-
     @Column(nullable = false)
     private LocalDate date;
 }

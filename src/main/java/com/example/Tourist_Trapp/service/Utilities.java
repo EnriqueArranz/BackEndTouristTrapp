@@ -1,6 +1,7 @@
 package com.example.Tourist_Trapp.service;
 
 import com.example.Tourist_Trapp.model.CulturalPlace;
+import com.example.Tourist_Trapp.model.Noise;
 import com.example.Tourist_Trapp.model.TouristConcentration;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class Utilities {
@@ -18,20 +21,55 @@ public class Utilities {
     private TouristConcentrationService turistConcentrationService;
     @Autowired
     private CulturalPlaceService culturalPlaceService;
+    @Autowired
+    private NoiseService noiseService;
+
     @PostConstruct
     public void init() {
         importTuristConcentrationFromCSV();
         importCulturalPlacesFromCSV();
+        importNoiseFromCSV();
     }
+
+//    public void importTuristConcentrationFromCSV() {
+//        if (turistConcentrationService.getAllTouristConcentrations().isEmpty()) {
+//            try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+//                    Utilities.class.getResourceAsStream("/2019_turisme_allotjament_clean.csv"), StandardCharsets.UTF_8))) {
+//                reader.lines().skip(1).map(line -> {
+//                    String[] fields = line.split(",");
+//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//                    return new TouristConcentration(null, Double.parseDouble(fields[0]), Double.parseDouble(fields[1]), LocalDate.parse(fields[2], formatter));
+//                }).forEach(concentration -> turistConcentrationService.createTouristConcentration(concentration));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        } else {
+//            System.out.println("Repository is not empty, skipping import.");
+//        }
+//    }
     public void importTuristConcentrationFromCSV() {
         if (turistConcentrationService.getAllTouristConcentrations().isEmpty()) {
+            List<TouristConcentration> concentrations = new ArrayList<>();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                     Utilities.class.getResourceAsStream("/2019_turisme_allotjament_clean.csv"), StandardCharsets.UTF_8))) {
-                reader.lines().skip(1).map(line -> {
+
+                // Leer el archivo CSV y procesar cada línea
+                reader.lines().skip(1).forEach(line -> {
                     String[] fields = line.split(",");
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    return new TouristConcentration(null, Double.parseDouble(fields[0]), Double.parseDouble(fields[1]), LocalDate.parse(fields[2], formatter));
-                }).forEach(concentration -> turistConcentrationService.createTouristConcentration(concentration));
+                    TouristConcentration concentration = new TouristConcentration(
+                            null,  // ID autogenerado
+                            Double.parseDouble(fields[0]),  // Campo de concentración turística
+                            Double.parseDouble(fields[1]),  // Otro campo numérico
+                            LocalDate.parse(fields[2], formatter)  // Fecha en formato "yyyy-MM-dd"
+                    );
+                    concentrations.add(concentration);  // Añadir a la lista
+                });
+
+                // Insertar todas las concentraciones turísticas en lote
+                turistConcentrationService.saveAll(concentrations);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -39,14 +77,62 @@ public class Utilities {
             System.out.println("Repository is not empty, skipping import.");
         }
     }
+
+//    public void importCulturalPlacesFromCSV() {
+//        if (culturalPlaceService.getAllCulturalPlaces().isEmpty()) {
+//            try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+//                    Utilities.class.getResourceAsStream("/opendatabcn_pics-csv_clean.csv"), StandardCharsets.UTF_8))) {
+//                reader.lines().skip(1).map(line -> {
+//                    String[] fields = line.split(",");
+//                    return new CulturalPlace(null, fields[0], fields[1], fields[2], Double.parseDouble(fields[3]), Double.parseDouble(fields[4]));
+//                }).forEach(place -> culturalPlaceService.createCulturalPlace(place));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        } else {
+//            System.out.println("Repository is not empty, skipping import.");
+//        }
+//    }
+
     public void importCulturalPlacesFromCSV() {
         if (culturalPlaceService.getAllCulturalPlaces().isEmpty()) {
+            List<CulturalPlace> places = new ArrayList<>();
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                     Utilities.class.getResourceAsStream("/opendatabcn_pics-csv_clean.csv"), StandardCharsets.UTF_8))) {
-                reader.lines().skip(1).map(line -> {
+                reader.lines().skip(1).forEach(line -> {
                     String[] fields = line.split(",");
-                    return new CulturalPlace(null, fields[0], fields[1], fields[2], Double.parseDouble(fields[3]), Double.parseDouble(fields[4]));
-                }).forEach(place -> culturalPlaceService.createCulturalPlace(place));
+                    // Crear objeto CulturalPlace a partir de los campos
+                    CulturalPlace place = new CulturalPlace(null, fields[0], fields[1], fields[2],
+                            Double.parseDouble(fields[3]), Double.parseDouble(fields[4]));
+                    places.add(place);
+                });
+                // Insertar todos los lugares culturales en lote
+                culturalPlaceService.saveAll(places);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Repository is not empty, skipping import.");
+        }
+    }
+
+
+
+    public void importNoiseFromCSV() {
+        if (noiseService.getAllNoiseData().isEmpty()) {
+            List<Noise> noises = new ArrayList<>();
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    Utilities.class.getResourceAsStream("/soroll_clean.csv"), StandardCharsets.UTF_8))) {
+                reader.lines().skip(1).forEach(line -> {
+                    String[] fields = line.split(",");
+                    LocalDate date = LocalDate.parse(fields[0]);
+                    double soundLevel = Double.parseDouble(fields[1]);
+                    double lat = Double.parseDouble(fields[2]);
+                    double lon = Double.parseDouble(fields[3]);
+                    noises.add(new Noise(null, date, soundLevel, lat, lon));
+                });
+                // Insertar en la base de datos en lote
+                noiseService.saveAll(noises);
             } catch (Exception e) {
                 e.printStackTrace();
             }

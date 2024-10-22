@@ -12,17 +12,14 @@ import java.util.List;
 @RequestMapping("/api/noise")
 public class NoiseController {
 
-    private final NoiseService noiseService;
-
     @Autowired
-    public NoiseController(NoiseService noiseService) {
-        this.noiseService = noiseService;
-    }
+    private NoiseService noiseService;
 
-    @GetMapping
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/all")
     public ResponseEntity<List<Noise>> getAllNoise() {
-        List<Noise> noiseData = noiseService.getAllNoiseData();
-        return ResponseEntity.ok(noiseData);
+        return ResponseEntity.ok(noiseService.getAllNoises().getBody());
     }
 
     @GetMapping("/{id}")

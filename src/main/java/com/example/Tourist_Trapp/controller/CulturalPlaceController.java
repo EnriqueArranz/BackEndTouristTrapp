@@ -28,7 +28,6 @@ public class CulturalPlaceController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/all")
     public ResponseEntity<List<CulturalPlace>> getAll() {
-
         return ResponseEntity.ok(culturalPlaceService.getAllPlaces().getBody());
     }
 

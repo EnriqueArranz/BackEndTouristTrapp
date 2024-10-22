@@ -12,20 +12,16 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Noise {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable = false)
-    private double soundLevel;
-
+    private LocalDate date;
+    @Column(nullable = false)
+    private double sound_level_mean;
     @Column(nullable = false)
     private double lat;
     @Column(nullable = false)
-    private double lan;
-
-    @Column(nullable = false)
-    private LocalDate date;
+    private double lon;
 }
 

@@ -15,4 +15,6 @@ public interface CulturalPlaceService {
     ResponseEntity<List<CulturalPlace>> getAllPlaces();
     void deleteCulturalPlaceById(Long id);
     double getProximityPercentage(double poiLat, double poiLon, double maxDistance);
+
+    void saveAll(List<CulturalPlace> places);
 }

@@ -20,11 +20,6 @@ public class TouristConcentrationServiceImpl implements TouristConcentrationServ
         touristConcentrationRepository.save(concentration);
     }
 
-    @Override
-    public void saveAll(List<TouristConcentration> concentrations) {
-        touristConcentrationRepository.saveAll(concentrations);
-    }
-
     public List<TouristConcentration> getAllTouristConcentrations() {
         return touristConcentrationRepository.findAll();
     }
