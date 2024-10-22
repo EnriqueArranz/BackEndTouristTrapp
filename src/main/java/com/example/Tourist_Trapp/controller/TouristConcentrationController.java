@@ -2,10 +2,10 @@ package com.example.Tourist_Trapp.controller;
 
 import com.example.Tourist_Trapp.exceptions.ResourceNotFoundException;
 import com.example.Tourist_Trapp.model.CulturalPlace;
-import com.example.Tourist_Trapp.model.TuristConcentration;
+import com.example.Tourist_Trapp.model.TouristConcentration;
 import com.example.Tourist_Trapp.repository.CulturalPlaceRepository;
-import com.example.Tourist_Trapp.service.CulturalPlaceService;
-import com.example.Tourist_Trapp.service.TuristConcentrationService;
+import com.example.Tourist_Trapp.service.CulturalPlaceServiceImpl;
+import com.example.Tourist_Trapp.service.TouristConcentrationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,18 +13,16 @@ import org.springframework.web.bind.annotation.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/culturalPlace")
-public class TuristConcentrationController {
+public class TouristConcentrationController {
     @Autowired
-    private CulturalPlaceService culturalPlaceService;
+    private CulturalPlaceServiceImpl culturalPlaceService;
     @Autowired
-    private TuristConcentrationService turistConcentrationService;
+    private TouristConcentrationServiceImpl turistConcentrationServiceImpl;
     @Autowired
     private CulturalPlaceRepository repository;
 
@@ -75,7 +73,7 @@ public class TuristConcentrationController {
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/turistConcentration/all")
-    public ResponseEntity<List<TuristConcentration>> getAllTuristConcentration() {
-        return ResponseEntity.ok(turistConcentrationService.getAllTuristConcentration().getBody());
+    public ResponseEntity<List<TouristConcentration>> getAllTuristConcentration() {
+        return ResponseEntity.ok(turistConcentrationServiceImpl.getAllTouristConcentration().getBody());
     }
 }
