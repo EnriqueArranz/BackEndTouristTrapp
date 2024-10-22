@@ -3,7 +3,6 @@ package com.example.Tourist_Trapp.service;
 import com.example.Tourist_Trapp.model.CulturalPlace;
 import com.example.Tourist_Trapp.repository.CulturalPlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -62,11 +61,6 @@ public class CulturalPlaceServiceImpl implements CulturalPlaceService {
     public CulturalPlace updateCulturalPlace(Long id, CulturalPlace place) {
         place.setId(id);
         return culturalPlaceRepository.save(place);
-    }
-
-    @Override
-    public ResponseEntity<List<CulturalPlace>> getAllPlaces() {
-        return ResponseEntity.ok(getAllCulturalPlaces());
     }
 
     public void deleteCulturalPlaceById(Long id) {

@@ -25,7 +25,7 @@ public class CulturalPlaceController {
 
     @Autowired
     private CulturalPlaceRepository repository;
-    @CrossOrigin(origins = "http://localhost:4200")
+
     @GetMapping("/all")
     public ResponseEntity<List<CulturalPlace>> getAll() {
 
