@@ -73,7 +73,7 @@ public class TuristConcentrationController {
             throw new RuntimeException("Error importing CSV", e);
         }
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/turistConcentration/all")
     public ResponseEntity<List<TuristConcentration>> getAllTuristConcentration() {
         return ResponseEntity.ok(turistConcentrationService.getAllTuristConcentration().getBody());
