@@ -21,10 +21,10 @@ public class TuristConcentration {
     private Long id;
 
     @Column(nullable = false)
-    private double longitude;
+    private double lon;
 
     @Column(nullable = false)
-    private double latitude;
+    private double lat;
 
     @Column(nullable = false)
     private LocalDate date;

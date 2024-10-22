@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CulturalPlaceService {
@@ -47,5 +48,22 @@ public class CulturalPlaceService {
         }
 
         return calculateProximityPercentage(closestDistance, maxDistance);
+    }
+
+    public Optional<CulturalPlace> getCulturalPlaceById(Long id) {
+        return culturalPlaceRepository.findById(id);
+    }
+
+    public CulturalPlace createCulturalPlace(CulturalPlace place) {
+        return culturalPlaceRepository.save(place);
+    }
+
+    public CulturalPlace updateCulturalPlace(Long id, CulturalPlace place) {
+        place.setId(id);
+        return culturalPlaceRepository.save(place);
+    }
+
+    public void deleteCulturalPlaceById(Long id) {
+        culturalPlaceRepository.deleteById(id);
     }
 }
