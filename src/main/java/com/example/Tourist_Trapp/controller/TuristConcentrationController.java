@@ -1,61 +1,80 @@
 package com.example.Tourist_Trapp.controller;
 
-import com.example.Tourist_Trapp.model.turistConcentration;
-import com.example.Tourist_Trapp.repository.TuristConcentrationRepository;
+import com.example.Tourist_Trapp.exceptions.ResourceNotFoundException;
+import com.example.Tourist_Trapp.model.CulturalPlace;
+import com.example.Tourist_Trapp.repository.CulturalPlaceRepository;
+import com.example.Tourist_Trapp.service.CulturalPlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/turistConcentration")
+@RequestMapping("/api/culturalPlace")
 public class TuristConcentrationController {
 
     @Autowired
-    private TuristConcentrationRepository repository;
+    private CulturalPlaceService culturalPlaceService;
+    @Autowired
+    private CulturalPlaceRepository repository;
 
     @GetMapping
-    public List<turistConcentration> getAll() {
-        return repository.findAll();
+    public ResponseEntity<List<CulturalPlace>> getAll() {
+        List<CulturalPlace> list = repository.findAll();
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")
-    public turistConcentration getById(@PathVariable Long id) {
-        return repository.findById(id).orElse(null);
+    public ResponseEntity<CulturalPlace> getById(@PathVariable Long id) {
+        Optional<CulturalPlace> place = repository.findById(id);
+        if (place.isEmpty()) {
+            throw new ResourceNotFoundException("Cultural place not found with id " + id);
+        }
+        return ResponseEntity.ok(place.get());
     }
 
     @PostMapping
-    public turistConcentration create(@RequestBody turistConcentration concentration) {
-        return repository.save(concentration);
+    public ResponseEntity<CulturalPlace> create(@RequestBody CulturalPlace place) {
+        CulturalPlace savedPlace = repository.save(place);
+        return ResponseEntity.status(201).body(savedPlace);
     }
 
     @PutMapping("/{id}")
-    public turistConcentration update(@PathVariable Long id, @RequestBody turistConcentration concentration) {
-        concentration.setId(id);
-        return repository.save(concentration);
+    public ResponseEntity<CulturalPlace> update(@PathVariable Long id, @RequestBody CulturalPlace place) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Cultural place not found with id " + id);
+        }
+        place.setId(id);
+        CulturalPlace updatedPlace = repository.save(place);
+        return ResponseEntity.ok(updatedPlace);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Cultural place not found with id " + id);
+        }
         repository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/import")
-    public List<turistConcentration> importFromCSV() {
+    public ResponseEntity<List<CulturalPlace>> importFromCSV() {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                getClass().getResourceAsStream("/turistConcentration.csv"), StandardCharsets.UTF_8))) {
-            return reader.lines().skip(1).map(line -> {
+                getClass().getResourceAsStream("/culturalPlace.csv"), StandardCharsets.UTF_8))) {
+            List<CulturalPlace> list = reader.lines().skip(1).map(line -> {
                 String[] fields = line.split(",");
-                return new turistConcentration(null, Double.parseDouble(fields[0]), Double.parseDouble(fields[1]), LocalDate.parse(fields[2]));
+                return new CulturalPlace(null, fields[0], Double.parseDouble(fields[1]), Double.parseDouble(fields[2]), fields[3], fields[4]);
             }).collect(Collectors.toList());
+            return ResponseEntity.ok(list);
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException("Error importing CSV", e);
         }
     }
 }
