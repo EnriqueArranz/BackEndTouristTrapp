@@ -20,15 +20,19 @@ public class Utilities {
         importTuristConcentrationFromCSV();
     }
     public void importTuristConcentrationFromCSV() {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                Utilities.class.getResourceAsStream("/2019_turisme_allotjament_clean.csv"), StandardCharsets.UTF_8))) {
-            reader.lines().skip(1).map(line -> {
-                String[] fields = line.split(",");
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                return new TuristConcentration(null, Double.parseDouble(fields[0]), Double.parseDouble(fields[1]), LocalDate.parse(fields[2], formatter));
-            }).forEach(concentration -> turistConcentrationService.createTuristConcentration(concentration));
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (turistConcentrationService.getAllTuristConcentrations().isEmpty()) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    Utilities.class.getResourceAsStream("/2019_turisme_allotjament_clean.csv"), StandardCharsets.UTF_8))) {
+                reader.lines().skip(1).map(line -> {
+                    String[] fields = line.split(",");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    return new TuristConcentration(null, Double.parseDouble(fields[0]), Double.parseDouble(fields[1]), LocalDate.parse(fields[2], formatter));
+                }).forEach(concentration -> turistConcentrationService.createTuristConcentration(concentration));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Repository is not empty, skipping import.");
         }
     }
 }
