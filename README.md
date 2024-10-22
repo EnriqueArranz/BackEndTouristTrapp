@@ -9,20 +9,31 @@ Cálculo de Proximidad: Calcula el porcentaje de proximidad entre un punto de in
 Importación de Datos: Permite la importación de datos desde archivos CSV para ambos tipos de entidades.
 
 Endpoints
+
 Lugares de Interés Cultural
+
 GET /api/culturalPlace: Obtiene todos los lugares de interés cultural.
+
 GET /api/culturalPlace/{id}: Obtiene un lugar de interés cultural por su ID.
+
 GET /api/culturalPlace/import: Importa lugares de interés cultural desde un archivo CSV.
+
 GET /api/culturalPlace/proximity: Calcula el porcentaje de proximidad entre un punto de interés y los lugares culturales
 
 Puntos de Concentración Turística
+
 GET /api/turistConcentration: Obtiene todos los puntos de concentración turística.
+
 GET /api/turistConcentration/{id}: Obtiene un punto de concentración turística por su ID.
+
 GET /api/turistConcentration/import: Importa puntos de concentración turística desde un archivo CSV.
+
 GET /api/turistConcentration/proximity: Calcula el porcentaje de proximidad entre un punto de interés y los puntos de concentración turística.
 
 Instalación
+
 Clona el repositorio:  <pre>git clone https://github.com/audiochemist/Tourist_Trapp.git cd Tourist_Trapp </pre>
+
 Configura la base de datos en el archivo src/main/resources/application.properties:  <pre>spring.datasource.url=jdbc:mysql://localhost:3306/touristdb spring.datasource.username=root spring.datasource.password=root </pre>
 Ejecuta la aplicación:  <pre>mvn spring-boot:run </pre>
 
