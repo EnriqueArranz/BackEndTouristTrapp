@@ -2,10 +2,9 @@ package com.example.Tourist_Trapp.controller;
 
 import com.example.Tourist_Trapp.exceptions.ResourceNotFoundException;
 import com.example.Tourist_Trapp.model.CulturalPlace;
-import com.example.Tourist_Trapp.model.TuristConcentration;
 import com.example.Tourist_Trapp.repository.CulturalPlaceRepository;
 import com.example.Tourist_Trapp.service.CulturalPlaceService;
-import com.example.Tourist_Trapp.service.TuristConcentrationService;
+import com.example.Tourist_Trapp.service.TouristConcentrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +19,10 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/culturalPlace")
-public class TuristConcentrationController {
+public class CulturalPlaceController {
     @Autowired
     private CulturalPlaceService culturalPlaceService;
-    @Autowired
-    private TuristConcentrationService turistConcentrationService;
+
     @Autowired
     private CulturalPlaceRepository repository;
 
@@ -66,16 +64,11 @@ public class TuristConcentrationController {
                 getClass().getResourceAsStream("/culturalPlace.csv"), StandardCharsets.UTF_8))) {
             List<CulturalPlace> list = reader.lines().skip(1).map(line -> {
                 String[] fields = line.split(",");
-                return new CulturalPlace(null, fields[0], Double.parseDouble(fields[1]), Double.parseDouble(fields[2]), fields[3], fields[4]);
+                return new CulturalPlace(null, fields[0], fields[1], fields[2], Double.parseDouble(fields[3]), Double.parseDouble(fields[4]));
             }).collect(Collectors.toList());
             return ResponseEntity.ok(list);
         } catch (Exception e) {
             throw new RuntimeException("Error importing CSV", e);
         }
-    }
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/turistConcentration/all")
-    public ResponseEntity<List<TuristConcentration>> getAllTuristConcentration() {
-        return ResponseEntity.ok(turistConcentrationService.getAllTuristConcentration().getBody());
     }
 }
