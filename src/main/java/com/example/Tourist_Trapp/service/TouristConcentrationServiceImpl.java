@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TouristConcentrationServiceImpl implements TouristConcentrationService {
@@ -16,9 +17,6 @@ public class TouristConcentrationServiceImpl implements TouristConcentrationServ
     private TouristConcentrationRepository touristConcentrationRepository;
 
     public void createTouristConcentration(TouristConcentration concentration) {
-        if (concentration == null) {
-            throw new BadRequestException("TouristConcentration cannot be null");
-        }
         touristConcentrationRepository.save(concentration);
     }
 
@@ -26,12 +24,14 @@ public class TouristConcentrationServiceImpl implements TouristConcentrationServ
         return touristConcentrationRepository.findAll();
     }
 
-    public TouristConcentration getTouristConcentrationById(Long id) {
-        return touristConcentrationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("TouristConcentration not found with id " + id));
+    public Optional<TouristConcentration> getTouristConcentrationById(Long id) {
+        return touristConcentrationRepository.findById(id);
     }
+
 
     public ResponseEntity<List<TouristConcentration>> getAllTouristConcentration() {
         return ResponseEntity.ok(getAllTouristConcentrations());
     }
+
+
 }

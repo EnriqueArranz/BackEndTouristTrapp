@@ -2,10 +2,10 @@ package com.example.Tourist_Trapp.controller;
 
 import com.example.Tourist_Trapp.exceptions.ResourceNotFoundException;
 import com.example.Tourist_Trapp.model.CulturalPlace;
-import com.example.Tourist_Trapp.model.TuristConcentration;
+import com.example.Tourist_Trapp.model.TouristConcentration;
 import com.example.Tourist_Trapp.repository.CulturalPlaceRepository;
 import com.example.Tourist_Trapp.service.CulturalPlaceService;
-import com.example.Tourist_Trapp.service.TuristConcentrationService;
+import com.example.Tourist_Trapp.service.TouristConcentrationService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -20,15 +20,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/touristConcentration")
-public class TuristConcentrationController {
+public class TouristConcentrationController {
     @Autowired
     private CulturalPlaceService culturalPlaceService;
     @Autowired
-    private TuristConcentrationService turistConcentrationService;
+    private TouristConcentrationService touristConcentrationService;
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/all")
-    public ResponseEntity<List<TuristConcentration>> getAllTuristConcentration() {
-        return ResponseEntity.ok(turistConcentrationService.getAllTuristConcentration().getBody());
+    public ResponseEntity<List<TouristConcentration>> getAllTouristConcentration() {
+        return ResponseEntity.ok(touristConcentrationService.getAllTouristConcentration().getBody());
     }
 }
