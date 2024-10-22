@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TuristConcentration {
+public class TouristConcentration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

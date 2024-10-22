@@ -79,4 +79,3 @@ public class TuristConcentrationController {
         return ResponseEntity.ok(turistConcentrationService.getAllTuristConcentration().getBody());
     }
 }
-
