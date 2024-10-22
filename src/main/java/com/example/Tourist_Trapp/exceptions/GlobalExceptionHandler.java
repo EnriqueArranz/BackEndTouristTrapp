@@ -1,4 +1,4 @@
-package com.example.Tourist_Trapp.exception;
+package com.example.Tourist_Trapp.exceptions;
 
 import com.example.Tourist_Trapp.exceptions.InvalidDataException;
 import com.example.Tourist_Trapp.exceptions.ResourceNotFoundException;

@@ -51,11 +51,6 @@
             <artifactId>hibernate-spatial</artifactId>
             <version>6.4.4.Final</version>
         </dependency>
-        <dependency>
-            <groupId>org.geotools</groupId>
-            <artifactId>gt-geopkg</artifactId>
-            <version>27.0</version>
-        </dependency>
 
 
 
