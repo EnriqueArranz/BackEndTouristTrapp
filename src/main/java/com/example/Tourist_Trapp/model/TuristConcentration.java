@@ -9,27 +9,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class culturalPlace {
+public class TuristConcentration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private double lon;
 
     @Column(nullable = false)
-    private double longitude;
+    private double lat;
 
     @Column(nullable = false)
-    private double latitude;
-
-    @Column(nullable = false)
-    private String category;
-
-    @Column(nullable = false)
-    private String address;
+    private LocalDate date;
 }
