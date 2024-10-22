@@ -31,45 +31,23 @@ public class Utilities {
         importNoiseFromCSV();
     }
 
-//    public void importTuristConcentrationFromCSV() {
-//        if (turistConcentrationService.getAllTouristConcentrations().isEmpty()) {
-//            try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-//                    Utilities.class.getResourceAsStream("/2019_turisme_allotjament_clean.csv"), StandardCharsets.UTF_8))) {
-//                reader.lines().skip(1).map(line -> {
-//                    String[] fields = line.split(",");
-//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//                    return new TouristConcentration(null, Double.parseDouble(fields[0]), Double.parseDouble(fields[1]), LocalDate.parse(fields[2], formatter));
-//                }).forEach(concentration -> turistConcentrationService.createTouristConcentration(concentration));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        } else {
-//            System.out.println("Repository is not empty, skipping import.");
-//        }
-//    }
     public void importTuristConcentrationFromCSV() {
         if (turistConcentrationService.getAllTouristConcentrations().isEmpty()) {
             List<TouristConcentration> concentrations = new ArrayList<>();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                     Utilities.class.getResourceAsStream("/2019_turisme_allotjament_clean.csv"), StandardCharsets.UTF_8))) {
-
-                // Leer el archivo CSV y procesar cada línea
                 reader.lines().skip(1).forEach(line -> {
                     String[] fields = line.split(",");
                     TouristConcentration concentration = new TouristConcentration(
-                            null,  // ID autogenerado
-                            Double.parseDouble(fields[0]),  // Campo de concentración turística
-                            Double.parseDouble(fields[1]),  // Otro campo numérico
-                            LocalDate.parse(fields[2], formatter)  // Fecha en formato "yyyy-MM-dd"
+                            null,
+                            Double.parseDouble(fields[0]),
+                            Double.parseDouble(fields[1]),
+                            LocalDate.parse(fields[2], formatter)
                     );
-                    concentrations.add(concentration);  // Añadir a la lista
+                    concentrations.add(concentration);
                 });
-
-                // Insertar todas las concentraciones turísticas en lote
                 turistConcentrationService.saveAll(concentrations);
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -77,22 +55,6 @@ public class Utilities {
             System.out.println("Repository is not empty, skipping import.");
         }
     }
-
-//    public void importCulturalPlacesFromCSV() {
-//        if (culturalPlaceService.getAllCulturalPlaces().isEmpty()) {
-//            try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-//                    Utilities.class.getResourceAsStream("/opendatabcn_pics-csv_clean.csv"), StandardCharsets.UTF_8))) {
-//                reader.lines().skip(1).map(line -> {
-//                    String[] fields = line.split(",");
-//                    return new CulturalPlace(null, fields[0], fields[1], fields[2], Double.parseDouble(fields[3]), Double.parseDouble(fields[4]));
-//                }).forEach(place -> culturalPlaceService.createCulturalPlace(place));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        } else {
-//            System.out.println("Repository is not empty, skipping import.");
-//        }
-//    }
 
     public void importCulturalPlacesFromCSV() {
         if (culturalPlaceService.getAllCulturalPlaces().isEmpty()) {
@@ -101,12 +63,10 @@ public class Utilities {
                     Utilities.class.getResourceAsStream("/opendatabcn_pics-csv_clean.csv"), StandardCharsets.UTF_8))) {
                 reader.lines().skip(1).forEach(line -> {
                     String[] fields = line.split(",");
-                    // Crear objeto CulturalPlace a partir de los campos
                     CulturalPlace place = new CulturalPlace(null, fields[0], fields[1], fields[2],
                             Double.parseDouble(fields[3]), Double.parseDouble(fields[4]));
                     places.add(place);
                 });
-                // Insertar todos los lugares culturales en lote
                 culturalPlaceService.saveAll(places);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -115,8 +75,6 @@ public class Utilities {
             System.out.println("Repository is not empty, skipping import.");
         }
     }
-
-
 
     public void importNoiseFromCSV() {
         if (noiseService.getAllNoiseData().isEmpty()) {
