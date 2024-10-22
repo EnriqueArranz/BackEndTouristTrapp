@@ -1,8 +1,6 @@
 package com.example.Tourist_Trapp.service;
 
-import com.example.Tourist_Trapp.model.CulturalPlace;
 import com.example.Tourist_Trapp.model.Noise;
-import com.example.Tourist_Trapp.repository.CulturalPlaceRepository;
 import com.example.Tourist_Trapp.repository.NoiseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
