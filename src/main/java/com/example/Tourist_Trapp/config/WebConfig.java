@@ -5,14 +5,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-    @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**") // Adjust this to your API endpoint pattern
-                .allowedOrigins( "*")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("Content-Type", "Authorization")
+        registry.addMapping("/api/**")
+                .allowedOrigins("*")
+                .allowedMethods("*")
+                .allowedHeaders("*")
+                .allowCredentials(true)
                 .maxAge(3600);
     }
 }
