@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Permitir que se suban los JARs generados
+!target/*.jar
+
 ### STS ###
 .apt_generated
 .classpath
