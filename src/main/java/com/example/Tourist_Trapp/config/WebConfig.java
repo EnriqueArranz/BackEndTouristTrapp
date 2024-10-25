@@ -10,7 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**") // Adjust this to your API endpoint pattern
-                .allowedOrigins("http://localhost:4200", "https://front-end-tourist-trapp.vercel.app")
+                .allowedOrigins( "https://front-end-tourist-trapp.vercel.app")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("Content-Type", "Authorization")
                 .maxAge(3600);

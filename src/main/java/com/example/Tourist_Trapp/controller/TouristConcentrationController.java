@@ -23,7 +23,7 @@ public class TouristConcentrationController {
     @Autowired
     private TouristConcentrationService touristConcentrationService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://front-end-tourist-trapp.vercel.app")
     @GetMapping("/all")
     public ResponseEntity<List<TouristConcentration>> getAllTouristConcentration() {
         return ResponseEntity.ok(touristConcentrationService.getAllTouristConcentration().getBody());

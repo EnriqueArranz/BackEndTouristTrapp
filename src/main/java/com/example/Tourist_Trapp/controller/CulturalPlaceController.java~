@@ -25,7 +25,7 @@ public class CulturalPlaceController {
 
     @Autowired
     private CulturalPlaceRepository repository;
-    @CrossOrigin(origins = "https://front-end-tourist-trapp.vercel.app")
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/all")
     public ResponseEntity<List<CulturalPlace>> getAll() {
         return ResponseEntity.ok(culturalPlaceService.getAllPlaces().getBody());
