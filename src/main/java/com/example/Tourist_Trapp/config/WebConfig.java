@@ -9,8 +9,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("*") // Adjust this to your API endpoint pattern
-                .allowedOrigins( "https://front-end-tourist-trapp.vercel.app")
+        registry.addMapping("/api/**") // Adjust this to your API endpoint pattern
+                .allowedOrigins( "*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("Content-Type", "Authorization")
                 .maxAge(3600);
