@@ -1,11 +1,12 @@
 HELP.md
-target/
+target/*
+!target/*.jar
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
 # Permitir que se suban los JARs generados
-!target/*.jar
+
 
 ### STS ###
 .apt_generated
