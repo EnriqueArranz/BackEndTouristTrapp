@@ -29,9 +29,7 @@ public class CulturalPlaceController {
     @CrossOrigin(origins = "https://front-end-tourist-trapp.vercel.app", maxAge = 3600)
     @GetMapping("/all")
     public ResponseEntity<List<CulturalPlace>> getAll() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Access-Control-Allow-Origin", "https://front-end-tourist-trapp.vercel.app");
-        return ResponseEntity.ok().headers(headers).body(culturalPlaceService.getAllPlaces().getBody());
+        return ResponseEntity.ok(culturalPlaceService.getAllPlaces().getBody());
     }
 
 
