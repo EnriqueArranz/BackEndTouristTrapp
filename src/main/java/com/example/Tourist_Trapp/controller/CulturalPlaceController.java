@@ -6,6 +6,7 @@ import com.example.Tourist_Trapp.repository.CulturalPlaceRepository;
 import com.example.Tourist_Trapp.service.CulturalPlaceService;
 import com.example.Tourist_Trapp.service.TouristConcentrationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,11 +26,13 @@ public class CulturalPlaceController {
 
     @Autowired
     private CulturalPlaceRepository repository;
-    @CrossOrigin(origins = "https://front-end-tourist-trapp.vercel.app")
-    @GetMapping("/all")
+    @CrossOrigin(origins = "https://front-end-tourist-trapp.vercel.app", maxAge = 3600)
     public ResponseEntity<List<CulturalPlace>> getAll() {
-        return ResponseEntity.ok(culturalPlaceService.getAllPlaces().getBody());
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "https://front-end-tourist-trapp.vercel.app");
+        return ResponseEntity.ok().headers(headers).body(culturalPlaceService.getAllPlaces().getBody());
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<CulturalPlace> getById(@PathVariable Long id) {
