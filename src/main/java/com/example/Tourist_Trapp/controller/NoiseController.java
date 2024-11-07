@@ -16,7 +16,7 @@ public class NoiseController {
     private NoiseService noiseService;
 
 
-    @CrossOrigin(origins = "https://solo-frontend-turisme.vercel.app", maxAge = 3600)
+
     @GetMapping("/all")
     public ResponseEntity<List<Noise>> getAllNoise() {
         return ResponseEntity.ok(noiseService.getAllNoises().getBody());

@@ -26,7 +26,7 @@ public class CulturalPlaceController {
 
     @Autowired
     private CulturalPlaceRepository repository;
-    @CrossOrigin(origins = "https://solo-frontend-turisme.vercel.app", maxAge = 3600)
+
     @GetMapping("/all")
     public ResponseEntity<List<CulturalPlace>> getAll() {
         return ResponseEntity.ok(culturalPlaceService.getAllPlaces().getBody());

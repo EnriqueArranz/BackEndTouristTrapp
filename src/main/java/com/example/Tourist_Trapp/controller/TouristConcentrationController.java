@@ -23,7 +23,7 @@ public class TouristConcentrationController {
     @Autowired
     private TouristConcentrationService touristConcentrationService;
 
-    @CrossOrigin(origins = "https://solo-frontend-turisme.vercel.app", maxAge = 3600)
+
     @GetMapping("/all")
     public ResponseEntity<List<TouristConcentration>> getAllTouristConcentration() {
         return ResponseEntity.ok(touristConcentrationService.getAllTouristConcentration().getBody());
