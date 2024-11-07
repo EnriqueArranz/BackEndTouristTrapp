@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
    @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedOrigins("https://front-end-tourist-trapp.vercel.app","https://solo-frontend-turisme.vercel.app/map", "http://localhost:4200","http://localhost:8080")
+                .allowedOrigins("https://solo-frontend-turisme.vercel.app","https://front-end-tourist-trapp.vercel.app", "http://localhost:4200","http://localhost:8080")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("Authorization", "Content-Type")
                 .allowCredentials(true)
