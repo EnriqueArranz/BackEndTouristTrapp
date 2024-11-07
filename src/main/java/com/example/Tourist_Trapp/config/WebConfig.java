@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedOrigins("https://front-end-tourist-trapp.vercel.app","https://solo-frontend-turisme.vercel.app/","https://solo-frontend-turisme.vercel.app", "http://localhost:4200","http://localhost:8080")
+                .allowedOrigins("https://front-end-tourist-trapp.vercel.app","https://solo-frontend-turisme.vercel.app", "http://localhost:4200","http://localhost:8080")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("Content-Type", "Authorization")
                 .allowCredentials(true)
